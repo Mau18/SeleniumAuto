@@ -43,7 +43,7 @@ dependencies {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(21);
     }
 }
 
@@ -52,5 +52,5 @@ tasks.named('test') {
     systemProperty "cucumberOptions", System.getProperty("cucumber.options")
     systemProperty "cucumber.filter.tags", 
     System.getProperty("cucumber.filter.tags")
-    //systemProperties System.getProperties(); //lee las propiedades del systema, como los Tag a ejecutar
+    
 }

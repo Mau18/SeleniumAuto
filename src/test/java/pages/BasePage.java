@@ -31,6 +31,15 @@ public class BasePage {
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+//     public static void EvitadetectSelenium(){
+//         ChromeOptions options = new ChromeOptions();
+
+//             System.setProperty("webdriver.chrome.driver", "C:\\Users\\jorge\\.cache\\selenium\\chromedriver\\win64\\133.0.6943.141\\chromedriver");
+//             options.addArguments("--disable-blink-features=AutomationControlled");
+//             options.addArguments("--disable-extensions");
+// }
+
+
     //Levanta una instancia de chrome cuando arranque la ejecución
     static{
         WebDriverManager.chromedriver().setup();
@@ -52,13 +61,17 @@ public class BasePage {
         driver.quit();
     }
 
-     //funcion de tiempo de espera localización de path esperando a que lo encuentre
-    private WebElement Find(String locator){
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    public static void Max(){
+        driver.manage().window().maximize();;
     }
 
-    private WebElement Find2(String locator){
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(locator)));
+    public static void BorrarCookies(){
+    driver.manage().deleteAllCookies();
+    }
+
+     //funcion de tiempo de espera localización de path esperando a que lo encuentre
+    protected WebElement Find(String locator){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
     }
 
     // función click de selenium para interactuar con los elementos web
@@ -91,7 +104,7 @@ public class BasePage {
         dropdown.selectByIndex(index);
     }
 
-    //Método para calcular el numero de elementos en un arreglo.
+    //Método para calcular el numero de elementos en un arreglo tipo Slect.
     public int dropdownSize(String locator){
         Select dropdown = new Select(Find(locator));
 
@@ -99,6 +112,14 @@ public class BasePage {
 
         return dropdownOptions.size();
 
+    }
+
+    //Método para calcular el numero de elementos en un arreglo tipo List <lu>
+    public int getListSize(String locator) {
+
+        List<WebElement> elements = driver.findElements(By.cssSelector(locator));
+    
+        return elements.size();
     }
 
     //Metodo que devuelve todos los valores de una lista
@@ -112,6 +133,13 @@ public class BasePage {
         }
 
         return values;
+    }
+
+    //Método para extraer lo valores tipo texto de un dropdown select
+    public void selectFromDropdownByText(String locator, String valueToSelect){
+        Select dropdown = new Select (Find(locator));
+
+        dropdown.selectByVisibleText(valueToSelect);
     }
 
     //Método para extraer el texto de un elemento
@@ -132,27 +160,29 @@ public class BasePage {
             results.get(index).click();
     }
 
+    //Método para realizar scroll para localizar un elemento que no se ve
     public void Scroll(String locator){
-        WebElement elemento = driver.findElement(By.className(locator)); 
+        WebElement elemento = driver.findElement(By.xpath(locator)); 
         JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].scrollIntoView(true);", elemento);
 
     }
-
-    //Método para calcular el numero de elementos en un arreglo.
-    public int getListSize(String locator) {
-        // Encuentra todos los elementos con el locator proporcionado
-        List<WebElement> elements = driver.findElements(By.cssSelector(locator));
     
-        // Devuelve el tamaño de la lista de elementos
-        return elements.size();
+
+    public void ClicJavaScript(String locator){
+        WebElement elemento = driver.findElement(By.xpath(locator));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", elemento);
+        //((JavascriptExecutor) driver).executeScript("arguments[0].click();", elemento);
+
     }
 
-   
-    
-
-
-    
+    //Metodo para buscar elementos en un dropdown por su texto enviadp desde scenario outline
+    public void SelectElementoDropdowTypeLi(String ExamplesOutline,String locator ){
+        String ElementoXpath = String.format("//span[contains(text(), '%s')]/ancestor::li", ExamplesOutline);
+        WebElement categoriaElement = driver.findElement(By.xpath(ElementoXpath));
+        categoriaElement.click();
+    }
 
 };
     
