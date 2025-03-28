@@ -41,7 +41,7 @@ jobs:
       - name: 📦 Subir reporte de pruebas
         uses: actions/upload-artifact@v3
         with:
-          name: test-report
+          name: test-report1
           path: build/reports/tests/test/index.html
 
 
