@@ -39,7 +39,7 @@ jobs:
         run: ls -alh
 
       - name: 📦 Subir reporte de pruebas
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-report
           path: build/reports/tests/test/index.html
