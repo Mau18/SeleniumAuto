@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout del código
+        uses: actions/checkout@v3
+
+      - name: ☕ Instalar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11' # Ajusta según tu versión
+
+      - name: 🔧 Configurar Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: 🏗️ Construir y ejecutar pruebas
+        run: ./gradlew build test
