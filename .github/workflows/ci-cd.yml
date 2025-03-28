@@ -32,6 +32,12 @@ jobs:
       - name: 🔑 Dar permisos de ejecución a Gradle
         run: chmod +x ./gradlew
 
+      - name: 🔧 Instalar Chrome y ChromeDriver
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable
+          sudo apt install -y chromedriver
+
       - name: 🏗️ Construir y ejecutar pruebas
         run: ./gradlew build test
 
