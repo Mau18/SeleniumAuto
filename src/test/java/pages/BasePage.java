@@ -44,24 +44,24 @@ public class BasePage {
 
 
     //Levanta una instancia de chrome cuando arranque la ejecución
-    static{
-
+    static {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        String userDataDir = System.getenv("USER_DATA_DIR"); // Obtener la ruta del entorno
-
-    if (userDataDir != null) {
-        System.out.println("Using user-data-dir: " + userDataDir);
-        options.addArguments("--user-data-dir=" + userDataDir);
-    } else {
-        System.out.println("User data dir not found, using default.");
-        options.addArguments("--user-data-dir=/path/to/default/dir");
-    }
     
-         //Inicializa la variable estática 'driver' con una instancia de ChromeDriver
-        driver = new ChromeDriver();
-        action = new Actions (driver);
+        // Obtener la ruta del entorno
+        String userDataDir = System.getenv("USER_DATA_DIR");
         
+        if (userDataDir != null) {
+            System.out.println("Using user-data-dir: " + userDataDir);
+            options.addArguments("--user-data-dir=" + userDataDir);
+        } else {
+            System.out.println("User data dir not found, using default.");
+            options.addArguments("--user-data-dir=/path/to/default/dir");
+        }
+    
+        // Inicializa la variable estática 'driver' con una instancia de ChromeDriver usando las opciones configuradas
+        driver = new ChromeDriver(options);  // Pasa las opciones aquí
+        action = new Actions(driver);
     }
 
     // constructor de BasePage que acepta un objeto WebDriver como argumento.
