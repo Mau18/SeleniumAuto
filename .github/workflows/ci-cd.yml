@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           name: test-report
-          path: build/reports/tests/test/index.html
+          path: build/reports/tests/test/
 
 
       
