@@ -37,3 +37,7 @@ jobs:
           name: test-report
           path: build/reports/tests/test/index.html
 
+      - name: 📂 Verificar directorio de trabajo
+        run: ls -alh
+
+
