@@ -102,7 +102,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
             name: test-word-reports
-            path: target/word/*.docx
+            path: target/*.docx
 
 
       
