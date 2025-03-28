@@ -98,6 +98,12 @@ jobs:
           name: test-report
           path: build/reports/tests/test/
 
+      - name: 📦 Subir reportes de pruebas en Word
+        uses: actions/upload-artifact@v4
+        with:
+            name: test-word-reports
+            path: build/reports/word/*.docx
+
 
       
 
