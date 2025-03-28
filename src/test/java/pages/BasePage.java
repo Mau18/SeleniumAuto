@@ -44,26 +44,40 @@ public class BasePage {
 
 
     //Levanta una instancia de chrome cuando arranque la ejecución
+    // static {
+    //     WebDriverManager.chromedriver().setup();
+    //     ChromeOptions options = new ChromeOptions();
+    
+    //     // Obtener la ruta del entorno
+    //     String userDataDir = System.getenv("USER_DATA_DIR");
+        
+    //     if (userDataDir != null) {
+    //         System.out.println("Using user-data-dir: " + userDataDir);
+    //         options.addArguments("--user-data-dir=" + userDataDir);
+    //     } else {
+    //         System.out.println("User data dir not found, using default.");
+    //         options.addArguments("--user-data-dir=/path/to/default/dir");
+    //     }
+    
+    //     // Inicializa la variable estática 'driver' con una instancia de ChromeDriver usando las opciones configuradas
+    //     driver = new ChromeDriver(options);  // Pasa las opciones aquí
+    //     action = new Actions(driver);
+    // }
+    
+    //******************************************************************************************************************* */
     static {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
     
-        // Obtener la ruta del entorno
-        String userDataDir = System.getenv("USER_DATA_DIR");
-        
-        if (userDataDir != null) {
-            System.out.println("Using user-data-dir: " + userDataDir);
-            options.addArguments("--user-data-dir=" + userDataDir);
-        } else {
-            System.out.println("User data dir not found, using default.");
-            options.addArguments("--user-data-dir=/path/to/default/dir");
-        }
+        // No usar el user-data-dir para probar si el problema está ahí
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
     
-        // Inicializa la variable estática 'driver' con una instancia de ChromeDriver usando las opciones configuradas
-        driver = new ChromeDriver(options);  // Pasa las opciones aquí
+        driver = new ChromeDriver(options);  // Ejecutar sin user-data-dir
         action = new Actions(driver);
     }
-
+    //****************************************************************************************************************** */
+    
     // constructor de BasePage que acepta un objeto WebDriver como argumento.
     public BasePage (WebDriver driver){
         BasePage.driver = driver;
