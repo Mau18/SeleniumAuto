@@ -46,14 +46,20 @@ public class BasePage {
     //Levanta una instancia de chrome cuando arranque la ejecución
     static{
 
-        // ChromeOptions options = new ChromeOptions();
-        // String userDataDir = "/path/to/unique/directory"; // Cambia esto a un directorio único
-        // options.addArguments("--user-data-dir=" + userDataDir);
-
         WebDriverManager.chromedriver().setup();
          //Inicializa la variable estática 'driver' con una instancia de ChromeDriver
         driver = new ChromeDriver();
         action = new Actions (driver);
+
+        ChromeOptions options = new ChromeOptions();
+        String userDataDir = System.getenv("USER_DATA_DIR"); // Obtener la ruta del entorno
+            if (userDataDir != null) {
+                    options.addArguments("--user-data-dir=" + userDataDir);
+             } else {
+             // Fallback a un valor predeterminado si no está disponible
+             options.addArguments("--user-data-dir=/path/to/default/dir");
+            }
+            driver = new ChromeDriver(options);
         
     }
 

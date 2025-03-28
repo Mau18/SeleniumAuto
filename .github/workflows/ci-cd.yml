@@ -40,10 +40,13 @@ jobs:
          unzip chromedriver-linux64.zip
          chmod +x chromedriver-linux64/chromedriver
          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+         
          # Crear un directorio temporal único para cada ejecución
          export USER_DATA_DIR=$(mktemp -d)
-
          echo "🔽 Directorio de datos de usuario: $USER_DATA_DIR"
+
+         # Establecer el valor de USER_DATA_DIR para pasos posteriores
+         echo "USER_DATA_DIR=$USER_DATA_DIR" >> $GITHUB_ENV
 
          chromedriver --version
 
@@ -55,6 +58,8 @@ jobs:
 
       - name: 🏗️ Construir y ejecutar pruebas
         run: ./gradlew build test || echo "⚠️ Las pruebas fallaron, pero seguimos adelante"
+        env:
+         USER_DATA_DIR: ${{ env.USER_DATA_DIR }}  # Pasar la variable de entorno al paso de ejecución
 
       - name: 📂 Listar archivos del reporte (depuración)
         run: ls -alh build/reports/tests/test || echo "⚠️ No se encontró el reporte"
