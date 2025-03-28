@@ -4,7 +4,7 @@ public class Pagina2 extends BasePage {
 
     private String Product = "/html/body/main/div/div[2]/section/ol/li[3]/div";
     
-    private String AddToCart = "//button[@id=':R9j5l8p99gm:']//span[@class='andes-button__content'][normalize-space()='Agregar al carrito']";
+    private String AddToCart = "//span[normalize-space()='Agregar al carrito']";
     private String mensaje = "//*[@id=\":R19:\"]/div[1]/h1";
 
     public Pagina2 () {

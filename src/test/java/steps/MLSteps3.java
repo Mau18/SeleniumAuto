@@ -1,7 +1,6 @@
 package steps;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import junit.framework.Assert;
 import pages.PaginaPrincipal;
@@ -14,10 +13,10 @@ public class MLSteps3 {
     Vehiculos PagVehiculos = new Vehiculos();
     ResultadosVehiculos Resultados = new ResultadosVehiculos();
 
-   @Given ("The user navigate to ML")
-   public void NavegandoML(){
-        PaginaInicial.navegaML();
-   }
+   // @Given ("The user navigate to www.mercadolibre.com.mx")
+   // public void NavegandoML(){
+   //      PaginaInicial.navegaML();
+   // }
 
    @Then ("El usuario selecciona la categoría Vehiculos")
    public void SelectCategoria(){

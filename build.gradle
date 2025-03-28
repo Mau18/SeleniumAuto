@@ -11,7 +11,7 @@ plugins {
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
+    // Use Maven Central for resolving dependencies, dependiendo de donde vienen las dependencias.
     mavenCentral()
 }
 
@@ -25,8 +25,8 @@ dependencies {
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.9.3'
 
 
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java  -- se usa para interactuar con los elementos web de una pag
-    implementation 'org.seleniumhq.selenium:selenium-java:4.29.0'
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation("org.seleniumhq.selenium:selenium-java:4.30.0")
 
     // https://mvnrepository.com/artifact/org.testng/testng  -- se usa para realizar las validaciones de campos y valores
     testImplementation 'org.testng:testng:7.11.0'
@@ -37,13 +37,19 @@ dependencies {
     // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
     testImplementation 'io.cucumber:cucumber-junit:7.21.1'
 
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation("org.slf4j:slf4j-api:2.0.17")
+
+     //Generar Word
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+    implementation 'org.apache.poi:poi-ooxml:5.4.0'
 
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21);
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 

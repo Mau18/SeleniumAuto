@@ -17,7 +17,7 @@ public class MLSteps1{
     Productos Prod = new Productos();
     Pagina2 Pag2 = new Pagina2();
 
-    @Given ("el usuario navega a mercadolibre.com.mx")
+    @Given ("The user navigate to www.mercadolibre.com.mx")
     public void navegaAmazon(){
             landigPage.navegaML();
     }

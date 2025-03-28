@@ -1,5 +1,10 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
 public class PaginaPrincipal extends BasePage {
 
     private String TextBox = "//input[@id='cb1-edit']";
@@ -8,9 +13,10 @@ public class PaginaPrincipal extends BasePage {
 
     //private String Cookies = "/html/body/div[4]/div[1]/div/div[2]/button[1]";
     private String Categorias = "//a[normalize-space()='Categorías']";
-    private String Vehiculos = "//a[normalize-space()='Vehículos']"; 
+    private String Vehiculos = "//a[normalize-space()='Vehículos']";
 
-    //"//ul[@class='nav-categs-departments']//a[contains(text(), 'Vehículos')]"; //a[normalize-space()='Compra Internacional']
+    private String results = "//*[@id=\"cb1-list\"]";
+
 
     public PaginaPrincipal(){
         super(driver);    
@@ -44,6 +50,24 @@ public class PaginaPrincipal extends BasePage {
         ClicJavaScript(Vehiculos);
         
     }
+
+    public void searchPlay() throws InterruptedException{
+        clickElement(TextBox);
+        Thread.sleep(600);
+        write(TextBox, "Playstation");
+    }
+
+    public List<String> getAllSearchResults(){
+        List<WebElement> list =bringMeElements(results);
+        List<String> stringFromList = new ArrayList<String>();
+        for(WebElement e: list){
+            stringFromList.add(e.getText());
+        }
+
+        return stringFromList;
+    }
+
+
     
 
 }

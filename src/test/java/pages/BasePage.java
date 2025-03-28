@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,6 +23,7 @@ public class BasePage {
      */
 
     protected static WebDriver driver;
+    private static Actions action;
 
      /*
      * Declaración de una variable de instancia 'wait' de tipo WebDriverWait.
@@ -45,11 +47,13 @@ public class BasePage {
         WebDriverManager.chromedriver().setup();
          //Inicializa la variable estática 'driver' con una instancia de ChromeDriver
         driver = new ChromeDriver();
+        action = new Actions (driver);
     }
 
     // constructor de BasePage que acepta un objeto WebDriver como argumento.
     public BasePage (WebDriver driver){
         BasePage.driver = driver;
+        
     }
 
      //Método estático para navegar a una URL.
@@ -69,13 +73,17 @@ public class BasePage {
     driver.manage().deleteAllCookies();
     }
 
-     //funcion de tiempo de espera localización de path esperando a que lo encuentre
+     //funcion espera a que el elemento se encuentre y sea visible para realizar una acción
     protected WebElement Find(String locator){
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
     }
 
+    // Solo confirma que existe el elemento en el html 
+    //protected WebElement customFind(String locator){
+    //     return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    // }
+
     // función click de selenium para interactuar con los elementos web
-    // cuando se use el click se mandará a llamar el clicElement que utiliza el Find con el tiempo de espera estipulado 
     public void clickElement(String locator){
         
             Find(locator).click();
@@ -183,6 +191,28 @@ public class BasePage {
         WebElement categoriaElement = driver.findElement(By.xpath(ElementoXpath));
         categoriaElement.click();
     }
+
+    //Método para pasar el mouse arriba de un elemento
+    
+    public void hoverOverElement(String locator){
+        action.moveToElement(Find(locator)).perform();;
+    }
+
+    //Método para realizar un doble clic
+    public void doubleClick(String locator){
+        action.doubleClick(Find(locator)).perform();;
+    }
+
+    //Método para realizar un clic derecho
+    public void rightClick(String locator){
+        action.contextClick(Find(locator)).perform();
+    }
+
+    //Método para armar una lista de elementos por xpath
+    public List<WebElement> bringMeElements(String locator){
+        return driver.findElements(By.xpath(locator));
+    } 
+
 
 };
     

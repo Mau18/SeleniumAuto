@@ -8,6 +8,14 @@
     "java.compile.nullAnalysis.mode": "automatic",
      "java.configuration.updateBuildConfiguration": "automatic"
 
+     // Agregar la configuración del JDK
+    // "java.home": "C:/Program Files/Java/jdk-23",  // Ajusta la ruta de acuerdo a tu instalación
+    // "java.configuration.runtimes": [
+    //     {
+    //         "name": "JavaSE-23",
+    //         "path": "C:/Program Files/Java/jdk-23"  // Asegúrate de que la ruta sea correcta
+    //     }
+    // ]
       
 }
 
