@@ -54,8 +54,8 @@ jobs:
       - name: 📂 Listar archivos del reporte (depuración)
         run: ls -alh build/reports/tests/test || echo "⚠️ No se encontró el reporte"
 
-      - name: 📦 Actualizar acciones
-        uses: actions/upload-pages-artifact@v3
+      # - name: 📦 Actualizar acciones
+      #   uses: actions/upload-pages-artifact@v3
 
       - name: 📦 Subir reporte de pruebas
         uses: actions/upload-artifact@v4
