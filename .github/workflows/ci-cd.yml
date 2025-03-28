@@ -29,7 +29,9 @@ jobs:
       - name: 🔧 Instalar Chrome y descargar ChromeDriver
         run: |
             sudo apt update
-            sudo apt install -y google-chrome-stable
+            sudo apt remove -y google-chrome-stable
+            wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_133.0.5672.126-1_amd64.deb
+            sudo dpkg -i google-chrome-stable_133.0.5672.126-1_amd64.deb
             CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d. -f1)
             CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
             wget -N "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
