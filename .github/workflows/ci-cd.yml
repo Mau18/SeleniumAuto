@@ -52,7 +52,8 @@ jobs:
         run: ls -alh build/reports/tests/test || echo "⚠️ No se encontró el reporte"
 
       - name: 📦 Subir reporte de pruebas
-        uses: actions/upload-pages-artifact@v3
+        #uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: test-report
           path: build/reports/tests/test/
