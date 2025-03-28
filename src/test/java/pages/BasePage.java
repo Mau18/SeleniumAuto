@@ -47,19 +47,20 @@ public class BasePage {
     static{
 
         WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        String userDataDir = System.getenv("USER_DATA_DIR"); // Obtener la ruta del entorno
+
+    if (userDataDir != null) {
+        System.out.println("Using user-data-dir: " + userDataDir);
+        options.addArguments("--user-data-dir=" + userDataDir);
+    } else {
+        System.out.println("User data dir not found, using default.");
+        options.addArguments("--user-data-dir=/path/to/default/dir");
+    }
+    
          //Inicializa la variable estática 'driver' con una instancia de ChromeDriver
         driver = new ChromeDriver();
         action = new Actions (driver);
-
-        ChromeOptions options = new ChromeOptions();
-        String userDataDir = System.getenv("USER_DATA_DIR"); // Obtener la ruta del entorno
-            if (userDataDir != null) {
-                    options.addArguments("--user-data-dir=" + userDataDir);
-             } else {
-             // Fallback a un valor predeterminado si no está disponible
-             options.addArguments("--user-data-dir=/path/to/default/dir");
-            }
-            driver = new ChromeDriver(options);
         
     }
 

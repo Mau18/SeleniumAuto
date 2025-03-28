@@ -47,8 +47,14 @@ jobs:
 
          # Establecer el valor de USER_DATA_DIR para pasos posteriores
          echo "USER_DATA_DIR=$USER_DATA_DIR" >> $GITHUB_ENV
+         echo "Directorio de datos de usuario creado: $USER_DATA_DIR"
+
 
          chromedriver --version
+
+      - name: Verificar directorio de datos de usuario
+        run: ls -alh $USER_DATA_DIR || echo "El directorio no se creó correctamente o está vacío."
+       
 
       - name: 🔧 Configurar Gradle
         uses:  gradle/gradle-build-action@v2
