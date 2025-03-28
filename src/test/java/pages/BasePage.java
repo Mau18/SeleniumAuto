@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -44,10 +45,16 @@ public class BasePage {
 
     //Levanta una instancia de chrome cuando arranque la ejecución
     static{
+
+        // ChromeOptions options = new ChromeOptions();
+        // String userDataDir = "/path/to/unique/directory"; // Cambia esto a un directorio único
+        // options.addArguments("--user-data-dir=" + userDataDir);
+
         WebDriverManager.chromedriver().setup();
          //Inicializa la variable estática 'driver' con una instancia de ChromeDriver
         driver = new ChromeDriver();
         action = new Actions (driver);
+        
     }
 
     // constructor de BasePage que acepta un objeto WebDriver como argumento.

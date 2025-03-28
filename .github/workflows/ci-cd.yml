@@ -40,6 +40,11 @@ jobs:
          unzip chromedriver-linux64.zip
          chmod +x chromedriver-linux64/chromedriver
          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+         # Crear un directorio temporal único para cada ejecución
+         export USER_DATA_DIR=$(mktemp -d)
+
+         echo "🔽 Directorio de datos de usuario: $USER_DATA_DIR"
+
          chromedriver --version
 
       - name: 🔧 Configurar Gradle
@@ -53,9 +58,6 @@ jobs:
 
       - name: 📂 Listar archivos del reporte (depuración)
         run: ls -alh build/reports/tests/test || echo "⚠️ No se encontró el reporte"
-
-      # - name: 📦 Actualizar acciones
-      #   uses: actions/upload-pages-artifact@v3
 
       - name: 📦 Subir reporte de pruebas
         uses: actions/upload-artifact@v4
