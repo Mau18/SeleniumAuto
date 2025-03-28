@@ -36,7 +36,7 @@ jobs:
         run: ./gradlew build test
 
       - name: 📂 Verificar directorio de trabajo (depuración)
-        run: ls -alh
+        run: ls -alh build/reports/tests/test
 
       - name: 📦 Subir reporte de pruebas
         uses: actions/upload-artifact@v3
