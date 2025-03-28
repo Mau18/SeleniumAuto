@@ -20,6 +20,9 @@ jobs:
       - name: 🔄 Checkout del código
         uses: actions/checkout@v4
 
+      - name: node
+        uses: actions/setup-node@v3
+
       - name: ☕ Instalar Java
         uses: actions/setup-java@v3
         with:
