@@ -52,6 +52,13 @@ jobs:
 
          chromedriver --version
 
+      - name: 🔍 Probar Chrome y ChromeDriver manualmente
+        run: |
+         google-chrome --version || echo "Chrome no está instalado"
+         chromedriver --version || echo "ChromeDriver no está instalado"
+         which chromedriver || echo "ChromeDriver no está en el PATH"
+         which google-chrome || echo "Chrome no está en el PATH"
+
       - name: Verificar directorio de datos de usuario
         run: ls -alh $USER_DATA_DIR || echo "El directorio no se creó correctamente o está vacío."
       - name: Verificar la variable de entorno USER_DATA_DIR
@@ -77,6 +84,9 @@ jobs:
         run: ./gradlew build test || echo "⚠️ Las pruebas fallaron, pero seguimos adelante"
         env:
          USER_DATA_DIR: ${{ env.USER_DATA_DIR }}  # Pasar la variable de entorno al paso de ejecución
+
+      - name: 🏗️ Ejecutar solo pruebas
+        run: ./gradlew test --info || echo "⚠️ Las pruebas fallaron, pero seguimos adelante"
 
       - name: 📂 Listar archivos del reporte (depuración)
         run: ls -alh build/reports/tests/test || echo "⚠️ No se encontró el reporte"

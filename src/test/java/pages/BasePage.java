@@ -70,6 +70,7 @@ public class BasePage {
         ChromeOptions options = new ChromeOptions();
     
         // No usar el user-data-dir para probar si el problema está ahí
+        options.addArguments("--headless"); 
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
     
@@ -77,7 +78,7 @@ public class BasePage {
         action = new Actions(driver);
     }
     //****************************************************************************************************************** */
-    
+
     // constructor de BasePage que acepta un objeto WebDriver como argumento.
     public BasePage (WebDriver driver){
         BasePage.driver = driver;
