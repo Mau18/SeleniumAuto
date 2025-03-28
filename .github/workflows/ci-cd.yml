@@ -28,16 +28,16 @@ jobs:
 
       - name: 🔧 Instalar Chrome y descargar ChromeDriver
         run: |
-            sudo apt update
-            sudo apt remove -y google-chrome-stable
-            wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_133.0.5672.126-1_amd64.deb
-            sudo dpkg -i google-chrome-stable_133.0.5672.126-1_amd64.deb
-            CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d. -f1)
-            CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
-            wget -N "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-            unzip chromedriver_linux64.zip
-            chmod +x chromedriver
-            sudo mv chromedriver /usr/local/bin/
+         CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d. -f1)
+          echo "Versión de Google Chrome detectada: $CHROME_VERSION"
+          if [[ "$CHROME_VERSION" == "134" ]]; then
+            CHROMEDRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions.json" | jq -r '.channels.Stable.version')
+            echo "Descargando ChromeDriver versión: $CHROMEDRIVER_VERSION"
+            wget -N "https://storage.googleapis.com/chrome-for-testing-public/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip"
+            unzip chromedriver-linux64.zip
+            chmod +x chromedriver-linux64/chromedriver
+            sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+          fi
 
       - name: 🔧 Configurar Gradle
         uses:  gradle/gradle-build-action@v2
