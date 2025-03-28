@@ -54,8 +54,18 @@ jobs:
 
       - name: Verificar directorio de datos de usuario
         run: ls -alh $USER_DATA_DIR || echo "El directorio no se creó correctamente o está vacío."
-      - name: Ajustar permisos del directorio
-        run: chmod -R 777 $USER_DATA_DIR
+      - name: Verificar la variable de entorno USER_DATA_DIR
+        run: echo "USER_DATA_DIR is $USER_DATA_DIR"
+      - name: Verificar versión de ChromeDriver
+        run: chromedriver --version
+      
+
+      - name: Verificar y ajustar permisos del directorio de usuario
+        run: |
+          echo "Verificando permisos para $USER_DATA_DIR"
+          ls -alh $USER_DATA_DIR
+          chmod -R 777 $USER_DATA_DIR
+          ls -alh $USER_DATA_DIR  # Verificar que los permisos hayan cambiado correctamente
 
       - name: 🔧 Configurar Gradle
         uses:  gradle/gradle-build-action@v2
