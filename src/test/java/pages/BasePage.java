@@ -69,12 +69,20 @@ public class BasePage {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
     
-        // No usar el user-data-dir para probar si el problema está ahí
-        options.addArguments("--headless"); 
+        // Detectar si se está ejecutando en GitHub Actions
+        boolean isCiEnvironment = System.getenv("CI") != null;
+    
+        if (isCiEnvironment) {
+            System.out.println("Running in CI/CD mode, using headless.");
+            options.addArguments("--headless");  // Solo en CI/CD
+        } else {
+            System.out.println("Running locally, showing browser.");
+        }
+    
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
     
-        driver = new ChromeDriver(options);  // Ejecutar sin user-data-dir
+        driver = new ChromeDriver(options);
         action = new Actions(driver);
     }
     //****************************************************************************************************************** */
