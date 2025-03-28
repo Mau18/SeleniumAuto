@@ -26,11 +26,16 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: 🔧 Instalar Chrome y ChromeDriver
+      - name: 🔧 Instalar Chrome y descargar ChromeDriver
         run: |
             sudo apt update
             sudo apt install -y google-chrome-stable
-            sudo apt install -y chromedriver
+            CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d. -f1)
+            CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+            wget -N "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+            unzip chromedriver_linux64.zip
+            chmod +x chromedriver
+            sudo mv chromedriver /usr/local/bin/
 
       - name: 🔧 Configurar Gradle
         uses:  gradle/gradle-build-action@v2
