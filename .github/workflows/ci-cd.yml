@@ -54,7 +54,8 @@ jobs:
 
       - name: Verificar directorio de datos de usuario
         run: ls -alh $USER_DATA_DIR || echo "El directorio no se creó correctamente o está vacío."
-       
+      - name: Ajustar permisos del directorio
+        run: chmod -R 777 $USER_DATA_DIR
 
       - name: 🔧 Configurar Gradle
         uses:  gradle/gradle-build-action@v2
