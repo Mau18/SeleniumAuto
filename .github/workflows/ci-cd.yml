@@ -27,7 +27,7 @@ jobs:
           java-version: '21'
 
       - name: 🔧 Configurar Gradle
-        uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+        uses:  gradle/gradle-build-action@v2
 
       - name: 🔑 Dar permisos de ejecución a Gradle
         run: chmod +x ./gradlew
