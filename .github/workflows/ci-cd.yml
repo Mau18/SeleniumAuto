@@ -80,10 +80,10 @@ jobs:
       - name: 🔑 Dar permisos de ejecución a Gradle
         run: chmod +x ./gradlew
 
-      - name: 🏗️ Construir y ejecutar pruebas
-        run: ./gradlew build test || echo "⚠️ Las pruebas fallaron, pero seguimos adelante"
-        env:
-         USER_DATA_DIR: ${{ env.USER_DATA_DIR }}  # Pasar la variable de entorno al paso de ejecución
+      # - name: 🏗️ Construir y ejecutar pruebas
+      #   run: ./gradlew build test || echo "⚠️ Las pruebas fallaron, pero seguimos adelante"
+      #   env:
+      #    USER_DATA_DIR: ${{ env.USER_DATA_DIR }}  Pasar la variable de entorno al paso de ejecución
 
       - name: 🏗️ Ejecutar solo pruebas
         run: ./gradlew test --info || echo "⚠️ Las pruebas fallaron, pero seguimos adelante"
