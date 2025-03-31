@@ -1,21 +1,21 @@
 package steps;
 
 import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.plugin.EventListener;
 import io.cucumber.plugin.event.*;
+
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import pages.BasePage;
+
 import utils.GeneraReporteWord;
 import utils.ScreenshotUtil;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Hooks extends BasePage implements EventListener {
@@ -33,6 +33,7 @@ public class Hooks extends BasePage implements EventListener {
         publisher.registerHandlerFor(TestStepFinished.class, this::captureStepResult);
     }
 
+    
     private void captureStep(TestStepStarted event) {
         TestStep step = event.getTestStep();
         if (step instanceof PickleStepTestStep) {
@@ -43,19 +44,37 @@ public class Hooks extends BasePage implements EventListener {
 
     private void captureStepResult(TestStepFinished event) {
         Result result = event.getResult();
-        stepResults.add(result.getStatus().isOk() ? "Exitoso" : "Fallido");  // Captura el resultado real del paso
+        String status = result.getStatus().toString();
+    
+        // Asegurar que stepResults y stepDescriptions tienen el mismo tamaño
+        while (stepResults.size() < stepDescriptions.size()) {
+            stepResults.add("Omitido");
+        }
+    
+        if (status.equalsIgnoreCase("PASSED")) {
+            stepResults.set(stepResults.size() - 1, "Exitoso");
+        } else if (status.equalsIgnoreCase("FAILED")) {
+            stepResults.set(stepResults.size() - 1, "Fallido");
+        } else if (status.equalsIgnoreCase("SKIPPED")) {
+            stepResults.set(stepResults.size() - 1, "Omitido");
+        } else {
+            stepResults.set(stepResults.size() - 1, "Desconocido (" + status + ")");
+        }
+    
+        System.out.println("✅ Estado real del paso: " + status);
     }
 
-    @Before
-    public void beforeScenario() {
-        stepDescriptions.clear(); // Limpiar las listas antes de cada escenario
-        stepResults.clear();
-    }
 
     // Este método se ejecutará después de cada paso
     @AfterStep
     public void afterStep(Scenario scenario) throws IOException {
-        int stepNumber = stepDescriptions.size();  // Esto asegura que tomemos el paso correcto
+        int stepNumber = stepResults.size();
+
+        if (stepResults.size() < stepNumber) {
+            System.err.println("⚠️ No se encontró resultado para el paso " + stepNumber + ". Asignando 'Omitido'.");
+            stepResults.add("Omitido");
+        }
+
         String stepDescription = stepDescriptions.get(stepNumber - 1);  // Obtener la descripción del paso actual
         String stepResult = stepResults.get(stepNumber - 1);  // Obtener el resultado del paso actual
 
@@ -76,17 +95,8 @@ public class Hooks extends BasePage implements EventListener {
             GeneraReporteWord.createReportHeader(scenarioName, document);
         }
 
-//         // Generar un nombre de archivo único con timestamp
-// String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-// String scenarioName = scenario.getName().replaceAll(" ", "_") + "_" + timestamp;
-// XWPFDocument document = new XWPFDocument();
-
-// // Crear el encabezado del nuevo reporte
-// GeneraReporteWord.createReportHeader(scenarioName, document);
-
         // Genera el reporte para el paso actual
         GeneraReporteWord.generateReport(scenario.getName(), stepDescription, screenshotPath, stepResult, stepNumber, document);
-        
         // Guardar el documento final con todos los pasos
         GeneraReporteWord.saveDocument(document, scenarioName);
     }

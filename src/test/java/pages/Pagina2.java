@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.NoSuchElementException;
+
 public class Pagina2 extends BasePage {
 
     private String Product = "/html/body/main/div/div[2]/section/ol/li[3]/div";
@@ -12,7 +14,13 @@ public class Pagina2 extends BasePage {
     }
 
     public void SelectProducto(){
+        try{
         clickElement(Product);
+         }catch (NoSuchElementException e){
+            System.out.println("no se encuntra el producto a seleccionar");
+         }catch (Exception e) {
+            System.out.println("Ocurrió un error: " + e.getMessage());
+         }
     }  
 
     public void AgregarAlCarrito(){

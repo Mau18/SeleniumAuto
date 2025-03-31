@@ -1,5 +1,6 @@
 package pages;
 
+import java.util.NoSuchElementException;
 
 public class Productos extends BasePage {
 
@@ -21,7 +22,15 @@ public class Productos extends BasePage {
     }
 
     public void Scroll (){
-        Scroll(Pagina);
+        
+
+        try{
+            Scroll(Pagina);
+         }catch (NoSuchElementException e){
+            System.out.println("no se encuntra el elemento");
+         }catch (Exception e) {
+            System.out.println("Ocurrió un error: " + e.getMessage());
+         }
     }
 
     public void clickCookie(){

@@ -12,18 +12,22 @@ import java.nio.file.Paths;
 
 public class GeneraReporteWord {
 
+    private static String lastScenarioName = "";
+
     public static void generateReport(String scenarioName, String stepName, String screenshotPath, String result, int stepNumber, XWPFDocument document) {
         try {
             // Agregar información del escenario solo una vez
-            if (stepNumber == 1) {
+            if ( !scenarioName.equals(lastScenarioName)) {
                 XWPFParagraph casePara = document.createParagraph();
                 XWPFRun caseRun = casePara.createRun();
                 caseRun.setBold(true);
                 caseRun.setFontSize(16);
                 caseRun.setText("Escenario: " + scenarioName);
+
+                lastScenarioName = scenarioName;
             }
     
-            // Agregar información del paso
+            lastScenarioName = scenarioName;
             XWPFParagraph stepPara = document.createParagraph();
             XWPFRun stepRun = stepPara.createRun();
             stepRun.setText("Paso " + stepNumber + ": " + stepName);
@@ -31,6 +35,8 @@ public class GeneraReporteWord {
             stepRun.addBreak();
             stepRun.setText("Resultado: " + result);
             stepRun.setFontSize(12);
+           
+            
     
             // Agregar screenshot
             Path imgPath = Paths.get(screenshotPath);
