@@ -98,11 +98,20 @@ jobs:
           name: test-report
           path: build/reports/tests/test/
 
-      - name: 📦 Subir reportes de pruebas en Word
+          # Paso 3: Buscar la carpeta generada
+      - name: Buscar la carpeta generada
+        id: find_folder
+        run: |
+         # Encuentra la última carpeta que contiene los reportes
+         REPORT_DIR=$(ls -d target/execution_* | sort -r | head -n 1)
+         echo "La carpeta con los reportes es: $REPORT_DIR"
+         echo "report_dir=$REPORT_DIR" >> $GITHUB_ENV
+
+      - name: 📦 Evidencia de ejecución
         uses: actions/upload-artifact@v4
         with:
             name: test-word-reports
-            path: target/*.docx
+            path: ${{ steps.find_folder.outputs.report_dir }}
 
 
       
