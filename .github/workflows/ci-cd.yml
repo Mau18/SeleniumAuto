@@ -105,13 +105,13 @@ jobs:
          # Encuentra la última carpeta que contiene los reportes
          REPORT_DIR=$(ls -d target/execution_* | sort -r | head -n 1)
          echo "La carpeta con los reportes es: $REPORT_DIR"
-         echo "report_dir=$REPORT_DIR" >> $GITHUB_ENV
+         echo "report_dir=$REPORT_DIR" >> $GITHUB_ENV  # Guardar la ruta como variable de entorno
 
       - name: 📦 Evidencia de ejecución
         uses: actions/upload-artifact@v4
         with:
             name: test-word-reports
-            path: ${{ steps.find_folder.outputs.report_dir }}
+            path: ${{ env.report_dir }}
 
 
       
