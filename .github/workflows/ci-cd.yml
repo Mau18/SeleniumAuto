@@ -98,7 +98,7 @@ jobs:
           name: test-report
           path: build/reports/tests/test/
 
-          # Paso 3: Buscar la carpeta generada
+        # Paso 3: Buscar la carpeta generada
       - name: Buscar la carpeta generada
         id: find_folder
         run: |
@@ -106,6 +106,14 @@ jobs:
          REPORT_DIR=$(ls -d target/execution_* | sort -r | head -n 1)
          echo "La carpeta con los reportes es: $REPORT_DIR"
          echo "report_dir=$REPORT_DIR" >> $GITHUB_ENV  # Guardar la ruta como variable de entorno
+
+        # Paso 4: Obtener timestamp
+      - name: Obtener timestamp
+        id: get_timestamp
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+          echo "Timestamp generado: $TIMESTAMP"
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_ENV  # Guardar el timestamp como variable de entorno
 
       - name: 📦 Evidencia de ejecución
         uses: actions/upload-artifact@v4
