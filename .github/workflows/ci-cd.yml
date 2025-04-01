@@ -110,7 +110,7 @@ jobs:
       - name: 📦 Evidencia de ejecución
         uses: actions/upload-artifact@v4
         with:
-            name: test-word-reports
+            name: test-word-reports_${{ env.timestamp }} 
             path: ${{ env.report_dir }}
 
 
