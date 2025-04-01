@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 
 public class Pagina2 extends BasePage {
 
-    private String Product = "/html/body/main/div/div[2]/section/ol/li[3]/div";
+    private String Product = "/html/body/main/div/div[2]/section/div[7]/ol/li[4]/div/div";
     
     private String AddToCart = "//span[normalize-space()='Agregar al carrito']";
     private String mensaje = "//*[@id=\":R19:\"]/div[1]/h1";
